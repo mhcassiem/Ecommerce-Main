@@ -9,4 +9,4 @@ RUN python -m pip install -U --force-reinstall pip
 RUN pip install --no-cache-dir -r requirements.txt
 COPY src /app
 
-CMD python src/manage.py runserver 0.0.0.0:8000
+CMD python src/app.py
