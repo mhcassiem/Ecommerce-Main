@@ -1,0 +1,31 @@
+version: '3.3'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+    - "5432"
+    env_file:
+      - config/.env
+    volumes:
+    - pgdata:/var/lib/postgresql/data/
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    links:
+      - postgres
+    volumes:
+      - .:/app
+    env_file:
+      - config/.env
+    environment:
+      DJANGO_SETTINGS_MODULE: EcommBackend.settings.docker
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
